@@ -8,14 +8,14 @@
     <section class="menu">
         <ul>
             <li>
-                <select name="" id="">
-                    <option value="volvo">Resturant</option>
-                    <option value="saab">Bakery</option>
-                    <option value="opel">Cafe</option>
+                <select v-model="selected">
+                    <option value="restaurant">Resturant</option>
+                    <option value="bakery">Bakery</option>
+                    <option value="cafe">Cafe</option>
                 </select>
             </li>
             <li>
-                <input type="text" placeholder="search name...">
+                <input @input="test($event)" v-model="search" type="text" placeholder="search name...">
             </li>
         </ul>
     </section>
@@ -24,7 +24,19 @@
 
 <script>
 export default {
+    props: ['placeList'],
+    data() {
+        return {
+            search: '',
+            selected: ''
 
+        }
+    },
+    methods: {
+        test(event) {
+            this.$emit('search',event)
+        }
+    }
 }
 </script>
 
@@ -51,7 +63,7 @@ figure {
     margin-top: 20px;
 }
 
-.menu > ul {
+.menu>ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -61,9 +73,10 @@ figure {
     align-items: center;
 }
 
-.menu > ul > li {
+.menu>ul>li {
     margin: 0 20px;
 }
+
 .menu select {
     font-size: 20px;
     width: 100%;
@@ -74,10 +87,12 @@ figure {
     transition: .15s all ease-in-out;
     background: white;
 }
+
 .menu select:focus {
     outline: none;
     transform: scale(1.05);
 }
+
 .menu input {
     font-size: 20px;
     width: 100%;
@@ -88,6 +103,7 @@ figure {
     transition: .15s all ease-in-out;
     background: white;
 }
+
 .menu input:focus {
     outline: none;
     transform: scale(1.05);

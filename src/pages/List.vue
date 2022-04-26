@@ -1,11 +1,9 @@
 <template>
 <main>
-    <Search />
+    <Search @search="search" :placeList="placeList" />
     <div class="placeContainer">
         <div class="placeList">
-            <Card />
-            <Card />
-            <Card />
+            <Card v-for="(placeItem, i) in placeList" :key="i" :placeItem="placeItem" />
         </div>
     </div>
 </main>
@@ -22,7 +20,8 @@ export default {
     },
     data() {
         return {
-            placeList: []
+            placeList: [],
+            placeListInnitial: []
         }
     },
     mounted() {
@@ -31,9 +30,15 @@ export default {
     methods: {
         getPlaceData() {
             this.placeList = Json
-            for (let i = 0; i < this.placeList.length; i++) {
-                console.log(this.placeList[i]);
-            }
+            this.placeListInnitial = Json
+        },
+        search(event) {
+            this.placeList = this.placeListInnitial.slice().filter(item =>
+                item.name.toLowerCase().includes(event.target.value.toLowerCase()) ||
+                item.address.toLowerCase().includes(event.target.value.toLowerCase()) ||
+                item.categories.some(v => v.toLowerCase() == event.target.value.toLowerCase())
+                )
+            console.log(this.placeList.slice(), 'test');
         }
     }
 }

@@ -2,21 +2,27 @@
 <section class="placeVertical">
     <section class="placeDescription">
         <div class="image">
-            <img src="../assets/art.jpg" alt="">
+            <img :src="placeItem.profile_image_url" alt="">
         </div>
         <div>
-            <section class="placename">Name</section>
+            <section class="placename">{{ placeItem.name }}</section>
             <section class="detail">
-                <div class="open">daskjfklasdjfkl</div>
-                <div class="rating">asdfasd1</div>
+                <div class="open">{{ placeItem.categories }}</div>
+                <div class="rating">{{ placeItem.rating }}</div>
             </section>
         </div>
     </section>
     <section class="placeImage">
-        <img src="../assets/art.jpg" alt="">
+        <!-- <img :src="placeItem.images" alt=""> -->
     </section>
 </section>
 </template>
+
+<script>
+export default {
+    props: [ 'placeItem' ],
+}
+</script>
 
 <style scoped>
 .placeVertical {
