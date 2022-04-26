@@ -4,16 +4,19 @@
         <div class="image">
             <img :src="placeItem.profile_image_url" alt="">
         </div>
-        <div>
+        <div class="data">
             <section class="placename">{{ placeItem.name }}</section>
             <section class="detail">
-                <div class="open">{{ placeItem.categories }}</div>
-                <div class="rating">{{ placeItem.rating }}</div>
+                <div class="open">{{ placeItem.operation_time.day }}</div>
+                <div class="rating">● {{ placeItem.rating }}</div>
             </section>
         </div>
     </section>
     <section class="placeImage">
         <!-- <img :src="placeItem.images" alt=""> -->
+        <img class="pic1" :src="placeItem.images[0]" alt="">
+        <img :src="placeItem.images[1]" alt="">
+        <img class="pic3" :src="placeItem.images[2]" alt="">
     </section>
 </section>
 </template>
@@ -27,9 +30,7 @@ export default {
 <style scoped>
 .placeVertical {
     box-shadow: 0px 0px 12px gainsboro;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    border-top-right-radius: 16px;
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
 }
@@ -39,22 +40,48 @@ export default {
     box-shadow: 0px 0px 32px #CCC;
 }
 
+.placeVertical .placeImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 .placeVertical .placeImage img {
-    width: 100%;
+    width: 30%;
     height: 240px;
     object-fit: cover;
-    border-radius: 16px;
+    /* border-radius: 16px; */
+}
+.placeImage .pic1 {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+.placeImage .pic3 {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 .placeVertical .placeDescription {
-    padding: 16px 18px;
-    padding-top: 12px;
-    flex: 1;
     display: flex;
     flex-direction: row;
 }
+.placeVertical .placeDescription .image {
+    padding: 16px 18px;
+    padding-top: 12px;
+    margin-left: 10px;
+}
+.placeVertical .placeDescription .data {
+    flex: 1;
+    /* padding: 16px 18px; */
+    padding-right: 20px;
+    padding-top: 12px;
+}
+
 .placeVertical .placeDescription .image img {
-    width: 70px;
-    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
      display: flex;
     /* flex-direction: column;
     justify-content: flex-end; */
@@ -64,8 +91,8 @@ export default {
 .placeVertical .placename {
     margin-left: 10px;
     font-weight: bold;
-    color: red;
-    font-size: 1.2rem;
+    color: #000;
+    font-size: 36px;
 }
 .placeVertical .detail {
     margin-left: 10px;
@@ -77,7 +104,8 @@ export default {
     color: blue;
 }
 .detail .rating {
-    color: blueviolet;
-    margin-left: 10px;
+    color: #134b8a;
+    font-weight: bold;
+    font-size: 20px;
 }
 </style>
