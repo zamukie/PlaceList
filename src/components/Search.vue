@@ -8,14 +8,15 @@
     <section class="menu">
         <ul>
             <li>
-                <select v-model="selected">
+                <select @test="test($event)" v-model="selected">
+                    <option disabled value="">Please select one</option>
                     <option value="restaurant">Resturant</option>
                     <option value="bakery">Bakery</option>
                     <option value="cafe">Cafe</option>
                 </select>
             </li>
             <li>
-                <input @input="test($event)" v-model="search" type="text" placeholder="search name...">
+                <input @input="find($event)" v-model="search" type="text" placeholder="search name...">
             </li>
         </ul>
     </section>
@@ -29,12 +30,14 @@ export default {
         return {
             search: '',
             selected: ''
-
         }
     },
     methods: {
-        test(event) {
+        find(event) {
             this.$emit('search',event)
+        },
+        test(event) {
+            this.$emit('catagories', event)
         }
     }
 }

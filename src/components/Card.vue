@@ -7,13 +7,15 @@
         <div class="data">
             <section class="placename">{{ placeItem.name }}</section>
             <section class="detail">
-                <div class="open">{{ placeItem.operation_time.day }}</div>
+                <div class="open">
+                    {{ placeItem.operation_time[day].time_open }} AM -
+                    {{ placeItem.operation_time[day].time_close }} PM
+                </div>
                 <div class="rating">● {{ placeItem.rating }}</div>
             </section>
         </div>
     </section>
     <section class="placeImage">
-        <!-- <img :src="placeItem.images" alt=""> -->
         <img class="pic1" :src="placeItem.images[0]" alt="">
         <img :src="placeItem.images[1]" alt="">
         <img class="pic3" :src="placeItem.images[2]" alt="">
@@ -22,8 +24,17 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
     props: [ 'placeItem' ],
+    data() {
+        return {
+            day: moment().day() - 1
+        }
+    },
+    mounted() {
+        console.log('adsfad',this.day);
+    }
 }
 </script>
 
@@ -101,7 +112,7 @@ export default {
     justify-content: space-between;
 }
 .detail .open {
-    color: blue;
+    color: #000;
 }
 .detail .rating {
     color: #134b8a;
