@@ -26,15 +26,12 @@
 <script>
 import moment from 'moment'
 export default {
-    props: [ 'placeItem' ],
+    props: ['placeItem'],
     data() {
         return {
             day: moment().day() - 1
         }
     },
-    mounted() {
-        console.log('adsfad',this.day);
-    }
 }
 </script>
 
@@ -64,23 +61,28 @@ export default {
     object-fit: cover;
     /* border-radius: 16px; */
 }
+
 .placeImage .pic1 {
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
 }
+
 .placeImage .pic3 {
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
 }
+
 .placeVertical .placeDescription {
     display: flex;
     flex-direction: row;
 }
+
 .placeVertical .placeDescription .image {
     padding: 16px 18px;
     padding-top: 12px;
     margin-left: 10px;
 }
+
 .placeVertical .placeDescription .data {
     flex: 1;
     /* padding: 16px 18px; */
@@ -93,27 +95,31 @@ export default {
     border-radius: 10px;
     width: 80px;
     height: 80px;
-     display: flex;
+    display: flex;
     /* flex-direction: column;
     justify-content: flex-end; */
     flex-direction: row;
     align-items: flex-start;
 }
+
 .placeVertical .placename {
     margin-left: 10px;
     font-weight: bold;
     color: #000;
     font-size: 36px;
 }
+
 .placeVertical .detail {
     margin-left: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+
 .detail .open {
     color: #000;
 }
+
 .detail .rating {
     color: #134b8a;
     font-weight: bold;

@@ -6,17 +6,8 @@
             <Card v-for="(placeItem, i) in paginatedItems" :key="i" :placeItem="placeItem" />
         </div>
         <div class="mt-3">
-            <h6>Default Pills</h6>
             <b-pagination @change="onPageChanged" :per-page="perPage" v-model="currentPage" pills :total-rows="totalRows"></b-pagination>
         </div>
-        <!-- <div class="pagination">
-            <PaginationButton 
-                v-for="page in totalPage" :key="page" 
-                @click="updatePageNumber(page)" 
-                :text="page"
-                :class="{ 'active': page === pageNumber }"
-                />
-        </div> -->
     </div>
 </main>
 </template>
@@ -24,13 +15,11 @@
 <script>
 import Card from '../components/Card.vue'
 import Search from '../components/Search.vue'
-// import PaginationButton from '../components/PaginationButton.vue'
 import Json from '../example_data.json'
 export default {
     components: {
         Card,
         Search,
-        // PaginationButton
     },
     data() {
         return {
@@ -39,7 +28,9 @@ export default {
             paginatedItems: [],
             currentPage: 1,
             perPage: 9,
-            totalRows: 0
+            totalRows: 0,
+            selected: '',
+            searchInput: ''
         }
     },
 
@@ -66,28 +57,39 @@ export default {
             this.placeListInnitial = Json
             this.paginatedItems = Json
             this.totalRows = Json.length
-            // this.total = Json.length
-            console.log('total', this.total);
         },
         search(event) {
-            let searchResult = this.placeListInnitial.slice().filter(item =>
-                item.name.toLowerCase().includes(event.target.value.toLowerCase())
-                // || item.categories.some(v => v.toLowerCase() == event.target.value.toLowerCase())
-            )
+            this.searchInput = event.target.value
+            let searchResult = this.placeListInnitial.slice().filter(item => {
+                let listName = item.name.toLowerCase().includes(event.target.value.toLowerCase())
+                let listCatagory = item.categories.some(catagoryName => catagoryName.toLowerCase() == this.selected.toLowerCase())
+                return this.selected !== '' ? listName && listCatagory : listName
+            })
             this.totalRows = searchResult.length
-            // this.paginatedItems = searchResult
             this.paginate(this.perPage, 0, searchResult)
         },
         catagories(event) {
-            console.log('sss', event);
-            this.placeList = this.placeList.slice().filter(item => item.catagories)
+            this.selected = event.target.value
+            let searchResult = this.placeListInnitial.slice().filter(item => {
+                let listName = item.name.toLowerCase().includes(this.searchInput.toLowerCase())
+                let listCatagory = item.categories.some(catagoryName => catagoryName.toLowerCase() == event.target.value.toLowerCase())
+                if (this.selected !== '') {
+                    return listName && listCatagory
+                } else if (this.selected === '' && this.searchInput) {
+                    return listName
+                } else {
+                    return this.placeListInnitial
+                }
+            })
+            this.totalRows = searchResult.length
+            this.paginate(this.perPage, 0, searchResult)
         },
         updatePageNumber(page) {
             this.pageNumber = page
             this.getPlaceData()
         },
         paginate(page_size, page_number, page_list) {
-            let itemsToParse = page_list?page_list: this.placeList;
+            let itemsToParse = page_list ? page_list : this.placeList;
             this.paginatedItems = itemsToParse.slice(
                 page_number * page_size,
                 (page_number + 1) * page_size

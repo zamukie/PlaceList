@@ -7,7 +7,6 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-// import Json from './example_data.json'
 import List from './pages/List.vue'
 export default {
   components: {

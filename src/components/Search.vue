@@ -8,8 +8,8 @@
     <section class="menu">
         <ul>
             <li>
-                <select @test="test($event)" v-model="selected">
-                    <option disabled value="">Please select one</option>
+                <select @change="select($event)" v-model="selected">
+                    <option value="">All</option>
                     <option value="restaurant">Resturant</option>
                     <option value="bakery">Bakery</option>
                     <option value="cafe">Cafe</option>
@@ -34,9 +34,9 @@ export default {
     },
     methods: {
         find(event) {
-            this.$emit('search',event)
+            this.$emit('search', event)
         },
-        test(event) {
+        select(event) {
             this.$emit('catagories', event)
         }
     }
